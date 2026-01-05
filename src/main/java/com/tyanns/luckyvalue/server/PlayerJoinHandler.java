@@ -9,6 +9,7 @@ public class PlayerJoinHandler {
     public static void register() {
         ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> {
             ServerPlayerEntity player = handler.player;
+            LuckyValueManager.initializeLuckyValue(player.getUuid());
             LuckyValueS2CPayload payload = new LuckyValueS2CPayload(LuckyValueManager.getLuckyValue(player.getUuid()));
             ServerPlayNetworking.send(player, payload);
         });

@@ -30,15 +30,19 @@ public class LuckyValueManager {
 
     private static boolean loaded = false;
 
-    private LuckyValueManager() {}
+    private LuckyValueManager() {
+    }
 
     public static void load() {
         if (loaded) return;
         loaded = true;
 
         try {
-            if (Files.notExists(SAVE_PATH)) {
+            if (Files.notExists(SAVE_PATH.getParent())) {
                 Files.createDirectories(SAVE_PATH.getParent());
+            }
+
+            if (Files.notExists(SAVE_PATH)) {
                 save();
                 return;
             }
@@ -71,6 +75,11 @@ public class LuckyValueManager {
             System.err.println("[LuckyValue] Failed to save file");
             e.printStackTrace();
         }
+    }
+
+    public static void initializeLuckyValue(UUID uuid) {
+        if (LUCKY_MAP.containsKey(uuid)) return;
+        LUCKY_MAP.put(uuid, 0);
     }
 
     public static int getLuckyValue(UUID uuid) {

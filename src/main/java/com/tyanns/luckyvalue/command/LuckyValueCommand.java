@@ -38,6 +38,23 @@ public class LuckyValueCommand {
                                                                         })
                                                 )
                                 )
+                ).then(
+                        CommandManager.literal("get")
+                                .then(
+                                        CommandManager.argument("target", EntityArgumentType.players())
+                                                .executes(
+                                                        context -> {
+                                                            final Collection<? extends ServerPlayerEntity> targets = EntityArgumentType.getPlayers(context, "target");
+                                                            StringBuilder str = new StringBuilder("幸运值查询如下:\n");
+                                                            for (ServerPlayerEntity serverPlayerEntity : targets) {
+                                                                str.append(serverPlayerEntity.getGameProfile().name()).append(": ").append(LuckyValueManager.getLuckyValue(serverPlayerEntity.getUuid())).append("\n");
+                                                            }
+                                                            str.deleteCharAt(str.length() - 1);
+                                                            context.getSource().sendFeedback(() -> Text.literal(str.toString()), false);
+                                                            return targets.size();
+                                                        }
+                                                )
+                                )
                 ));
     }
 }
