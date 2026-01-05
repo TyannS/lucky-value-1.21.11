@@ -16,7 +16,10 @@ public class DayChangeHandler {
             for (ServerWorld world : server.getWorlds()) {
                 long time = world.getTimeOfDay();
                 if (time % 24000 == 1) {
-                    onNewDay();
+                    for (UUID uuid : LuckyValueManager.getLuckyMap().keySet()) {
+                        int value = java.util.concurrent.ThreadLocalRandom.current().nextInt(-100, 101);
+                        LuckyValueManager.setLuckyValue(uuid, value);
+                    }
                     for (ServerPlayerEntity player : PlayerLookup.world((ServerWorld) world)) {
                         LuckyValueS2CPayload payload = new LuckyValueS2CPayload(LuckyValueManager.getLuckyValue(player.getUuid()));
                         ServerPlayNetworking.send(player, payload);
@@ -24,12 +27,5 @@ public class DayChangeHandler {
                 }
             }
         });
-    }
-
-    private static void onNewDay() {
-        for (UUID uuid : LuckyValueManager.getLuckyMap().keySet()) {
-            int value = java.util.concurrent.ThreadLocalRandom.current().nextInt(-100, 101);
-            LuckyValueManager.setLuckyValue(uuid, value);
-        }
     }
 }

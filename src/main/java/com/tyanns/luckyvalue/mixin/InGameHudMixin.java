@@ -36,7 +36,6 @@ public abstract class InGameHudMixin {
         context.drawTextWithShadow(renderer, text, x, y, getLuckyColor(ClientData.lucky_value));
     }
 
-    //幸运值决定HUD颜色
     @Unique
     private static int getLuckyColor(int value) {
         if (value < 0) {
