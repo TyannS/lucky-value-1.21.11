@@ -40,13 +40,13 @@ public abstract class InGameHudMixin {
     @Unique
     private static int getLuckyColor(int value) {
         if (value < 0) {
-            return 0xFFFF5555;   //红色
+            return 0xFFFF5555;
         } else if (value <= 50) {
-            return 0xFF55FF55;   //绿色
+            return 0xFF55FF55;
         } else if (value <= 90) {
-            return 0xFF55FFFF;   //天蓝色
+            return 0xFF55FFFF;
         } else {
-            return 0xFFFFD700;   //金色
+            return 0xFFFFD700;
         }
     }
 }

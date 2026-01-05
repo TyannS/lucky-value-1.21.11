@@ -39,7 +39,7 @@ public class LuckyValueManager {
         try {
             if (Files.notExists(SAVE_PATH)) {
                 Files.createDirectories(SAVE_PATH.getParent());
-                save(); // 创建空文件
+                save();
                 return;
             }
 
