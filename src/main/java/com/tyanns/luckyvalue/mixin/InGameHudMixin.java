@@ -23,6 +23,8 @@ public abstract class InGameHudMixin {
         MinecraftClient client = MinecraftClient.getInstance();
         if (client.player == null)
             return;
+        if (client.options.hudHidden)
+            return;
         TextRenderer renderer = client.textRenderer;
         String textStr = "幸运值: " + ClientData.lucky_value;
         Text text = Text.literal(textStr);
